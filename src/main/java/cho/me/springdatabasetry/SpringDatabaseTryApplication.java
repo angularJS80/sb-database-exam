@@ -13,7 +13,7 @@ public class SpringDatabaseTryApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringDatabaseTryApplication.class, args);
 	}
-/*
+
 	@Bean
 	public ApplicationRunner applicationRunner(final JdbcTemplate jdbcTemplate){
 		return new ApplicationRunner() {
@@ -24,7 +24,7 @@ public class SpringDatabaseTryApplication {
 			}
 		};
 	}
-	*/
+
 
 
 }

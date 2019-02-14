@@ -14,6 +14,10 @@ public class DefaultDataPopulator implements ApplicationRunner {
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+    AccountRepository accountRepository;
+
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Person person = new Person();
@@ -21,5 +25,8 @@ public class DefaultDataPopulator implements ApplicationRunner {
         person.setJoined("Y");
         person.setName("name");
         personRepository.save(person);
+        String[] names = new String[0];
+        accountRepository.findByNames(names);
+
     }
 }
