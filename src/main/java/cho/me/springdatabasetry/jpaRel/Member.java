@@ -1,5 +1,7 @@
 package cho.me.springdatabasetry.jpaRel;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,6 +34,7 @@ public class Member {
 
 	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY )
 	@JoinColumn(name="member_id")
+	@JsonBackReference
 	private List<MemberOrder> memberOrderList;
 
 
@@ -55,4 +58,16 @@ public class Member {
 				", memberOrderList=" + memberOrderList +
 				'}';
 	}
+
+	public String getString() {
+		return "Member{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", city='" + city + '\'' +
+				", street='" + street + '\'' +
+				", zipCode='" + zipCode + '\'' +
+				'}';
+	}
+
+
 }

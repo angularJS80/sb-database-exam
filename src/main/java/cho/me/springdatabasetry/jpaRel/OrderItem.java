@@ -1,5 +1,6 @@
 package cho.me.springdatabasetry.jpaRel;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.CascadeType;
@@ -26,6 +27,7 @@ public class OrderItem {
 	private int id;
 
 	@ManyToOne(optional=false)
+	@JsonManagedReference
 	private MemberOrder memberOrder;
 
 	@ManyToOne(optional=false)
@@ -45,4 +47,6 @@ public class OrderItem {
 				", count=" + count +
 				'}';
 	}
+
+
 }

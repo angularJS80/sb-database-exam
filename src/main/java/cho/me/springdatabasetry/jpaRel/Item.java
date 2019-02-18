@@ -35,4 +35,15 @@ public class Item {
 	@OneToMany
 	@JoinColumn(name="item_id")
 	private List<OrderItem> orderItemList;
+
+	@Override
+	public String toString() {
+		return "Item{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", price=" + price +
+				", stockQuantity=" + stockQuantity +
+				", orderItemList=" + orderItemList +
+				'}';
+	}
 }
