@@ -35,8 +35,18 @@ public class JpaTestService {
 
         members = memberRepository.findAll();
         for(Member member:members ){
-            System.out.println("member = " + member.getMemberOrderList());
+            System.out.println("member = " + member);
         }
+
+
+        List<MemberOrder> memberOrders  = memberOrderRepository.findAll();
+
+        for(MemberOrder memberOrder:memberOrders ){
+            System.out.println("memberOrder = " + memberOrder);
+        }
+
+
+
 
 
     }
