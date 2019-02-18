@@ -2,16 +2,7 @@ package cho.me.springdatabasetry.jpaRel;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +27,7 @@ public class MemberOrder {
 	@ManyToOne
 	private Member member;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY )
 	@JoinColumn(name="member_order_id")
 	private List<OrderItem> orderItemsList;
 
@@ -50,5 +41,16 @@ public class MemberOrder {
 			orderItemsList = new ArrayList<OrderItem>();
 		}
 		orderItemsList.add(orderItem);
+	}
+
+	@Override
+	public String toString() {
+		return "MemberOrder{" +
+				"id=" + id +
+				//", member=" + member +
+				", orderItemsList=" + orderItemsList +
+				", orderDate=" + orderDate +
+				", status=" + status +
+				'}';
 	}
 }

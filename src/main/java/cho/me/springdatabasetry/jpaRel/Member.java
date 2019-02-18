@@ -1,19 +1,8 @@
 package cho.me.springdatabasetry.jpaRel;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="MEMBER")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,9 +30,11 @@ public class Member {
 	@Column
 	private String zipCode;
 
-	@OneToMany(cascade = {CascadeType.ALL})
+	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY )
 	@JoinColumn(name="member_id")
 	private List<MemberOrder> memberOrderList;
+
+
 
 	public void addMemberOrder(MemberOrder memberOrder) {
 		if(memberOrderList ==null) {
@@ -50,5 +42,17 @@ public class Member {
 		}
 		memberOrder.setMember(this);
 		memberOrderList.add(memberOrder);
+	}
+
+	@Override
+	public String toString() {
+		return "Member{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", city='" + city + '\'' +
+				", street='" + street + '\'' +
+				", zipCode='" + zipCode + '\'' +
+				", memberOrderList=" + memberOrderList +
+				'}';
 	}
 }

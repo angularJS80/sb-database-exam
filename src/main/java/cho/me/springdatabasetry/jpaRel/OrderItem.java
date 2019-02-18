@@ -34,4 +34,15 @@ public class OrderItem {
 	private long orderPrice;
 
 	private long count;
+
+	@Override
+	public String toString() {
+		return "OrderItem{" +
+				"id=" + id +
+				//", memberOrder=" + memberOrder +
+				", item=" + item +
+				", orderPrice=" + orderPrice +
+				", count=" + count +
+				'}';
+	}
 }
