@@ -41,7 +41,7 @@ public class OrderItem {
 	public String toString() {
 		return "OrderItem{" +
 				"id=" + id +
-				//", memberOrder=" + memberOrder +
+				", memberOrder=" + memberOrder.getString() +
 				", item=" + item +
 				", orderPrice=" + orderPrice +
 				", count=" + count +

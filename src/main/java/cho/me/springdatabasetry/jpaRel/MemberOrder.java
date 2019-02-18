@@ -50,11 +50,19 @@ public class MemberOrder {
 	public String toString() {
 		return "MemberOrder{" +
 				"id=" + id +
-				//", member=" + member +
+				", member=" + member.getString() +
 				", orderItemsList=" + orderItemsList+
 				", orderDate=" + orderDate +
 				", status=" + status +
 				'}';
 	}
 
+	public String getString() {
+		return "MemberOrder{" +
+				"id=" + id +
+				", member=" + member.getString() +
+				", orderDate=" + orderDate +
+				", status=" + status +
+				'}';
+	}
 }
