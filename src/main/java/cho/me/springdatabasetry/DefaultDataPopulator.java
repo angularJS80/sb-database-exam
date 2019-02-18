@@ -12,6 +12,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class DefaultDataPopulator implements ApplicationRunner {
 
@@ -35,6 +38,7 @@ public class DefaultDataPopulator implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        /*
         Person person = new Person();
         person.setEmail("person@person.com");
         person.setJoined("Y") ;
@@ -44,87 +48,78 @@ public class DefaultDataPopulator implements ApplicationRunner {
 
         String[] names = new String[0];
         accountRepository.findByNames(names);
+        */
 
         goodsOrder();
 
     }
 
     public void goodsOrder(){
+        // 상품생성
+        List<Item> items = addDefaultItem();
+        itemRepository.saveAll(items);
+        // 회원 생성
+        List<Member> members = addDefaultMember();
 
-        // 상품등록
-        Item item1 = Item.builder()
-                .name("샤워기")
-                .price(5000)
-                .build();
-
-        itemRepository.save(item1);
-
-        Item item2 = Item.builder()
-                .name("온수기")
-                .price(10000)
-                .build();
-        itemRepository.save(item2);
-
-
-
-
-        // 회원생성
-        Member member = Member.builder()
-
-                .city("seoul")
-                .street("sinsuro")
-                .zipCode("100")
-                .name("Josh")
-                .build();
-
-        // 주문서 메인 페이지 작성
-        MemberOrder memberOrder= MemberOrder.builder()
-                //.member(member)
-                .build();
-
-
-
-        // 주문서에 담길 상품별 수량 , 단가 조정
-        OrderItem orderItem1 = OrderItem
-                .builder()
-                .memberOrder(memberOrder)
-                .item(item1).orderPrice(4500)
-                .count(5)
-                .build();
-
-        // 주문서에 담기
-        memberOrder.addOrderItem(orderItem1);
-
-
-        // 주문서에 담길 상품별 수량 , 단가 조정
-        OrderItem orderItem2 = OrderItem
-                .builder()
-                .memberOrder(memberOrder)
-                .item(item2).orderPrice(9000)
-                .count(1)
-                .build();
-
-        // 주문서에 담기
-        memberOrder.addOrderItem(orderItem2);
-
-        // 주문서를 회원에게 전달
-        member.addMemberOrder(memberOrder);
+        // 회원들에 주문서 작성 ( 동일한 상품목록)
+        orrding(members,items);
 
         // 모든 사항을 회원 중심으로 저장
-        memberRepository.save(member);
+        memberRepository.saveAll(members);
+    }
 
-        // 옆집사람 동일하게
-        Member member1 = Member.builder()
+    private void orrding(List<Member> members, List<Item> items) {
+        // 주문서 작성
+        //  모든회원에게 같은 주문서 할당
+        for(Member member:members){
+            MemberOrder memberOrder = createMemberOrder(items);
+            member.addMemberOrder(memberOrder);
+        }
+    }
 
-                .city("seoul")
-                .street("sinsuro")
-                .zipCode("101")
-                .name("cho")
-                .build();
-       // member1.addMemberOrder(memberOrder);
-        memberRepository.save(member1);
+    private MemberOrder  createMemberOrder( List<Item> items) {
+        MemberOrder memberOrder= MemberOrder.builder().build();
+        List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+
+        // 주문서에 담길 첫번째 상품 수량 , 단가 조정 1+1 이벤트
+        orderItemList.add(
+                OrderItem.builder().memberOrder(memberOrder).item(items.get(0)).orderPrice(2500).count(2).build()
+        );
+
+        orderItemList.add(
+                OrderItem.builder().memberOrder(memberOrder).item(items.get(0)).orderPrice(5000).count(2).build()
+        );
+
+        // 주문서에 담기
+        memberOrder.setOrderItemsList(orderItemList);
+        return memberOrder;
+    }
 
 
-       // memberOrderRepository.save(memberOrder);
+    private List<Member> addDefaultMember() {
+        List<Member> members = new ArrayList<Member>();
+        // josh 회원 인스턴스 생성
+        members.add(
+                Member.builder().city("seoul").street("sinsuro").zipCode("100").name("Josh").build()
+        );
+        // cho 회원 인스턴스 생성
+        members.add(
+                Member.builder().city("seoul").street("sinsuro").zipCode("101").name("cho").build()
+        );
+        return members;
+    }
+
+    private List<Item> addDefaultItem() {
+        List<Item> items = new ArrayList<Item>();
+        // 샤워기 상품인스턴스 생성
+        items.add(
+                Item.builder().name("샤워기").price(5000).build()
+        );
+
+        // 원수기 상품인스턴스 생성
+        items.add(
+                Item.builder().name("온수기").price(10000).build()
+        );
+        return items;
     }
 }

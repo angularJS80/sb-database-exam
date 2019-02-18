@@ -1,9 +1,6 @@
 package cho.me.springdatabasetry.jpaRel;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -28,6 +25,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Setter
+@Getter
 public class MemberOrder {
 
 	@Id

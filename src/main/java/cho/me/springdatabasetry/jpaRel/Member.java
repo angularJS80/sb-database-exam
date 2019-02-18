@@ -48,6 +48,7 @@ public class Member {
 		if(memberOrderList ==null) {
 			memberOrderList = new ArrayList<MemberOrder>();
 		}
+		memberOrder.setMember(this);
 		memberOrderList.add(memberOrder);
 	}
 }
