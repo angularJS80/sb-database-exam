@@ -14,7 +14,7 @@ public class AccountDslRepositoryImpl extends QuerydslRepositorySupport implemen
 
     @Override
     public List<Account> findByNames(String[] names) {
-        /*
+
         QAccount account = QAccount.account;
         QAccount account2 = QAccount.account;
         return from(account)
@@ -22,7 +22,7 @@ public class AccountDslRepositoryImpl extends QuerydslRepositorySupport implemen
                 .where(account.name.in(names))
 //                .uniqueResult(account) //하나 이상이면 에러
                 .fetch(); //하나 이상이면 처음거를 반환
-                */
-        return null;
+
+
     }
 }

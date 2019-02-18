@@ -37,8 +37,6 @@ public class Member {
 	@JsonBackReference
 	private List<MemberOrder> memberOrderList;
 
-
-
 	public void addMemberOrder(MemberOrder memberOrder) {
 		if(memberOrderList ==null) {
 			memberOrderList = new ArrayList<MemberOrder>();

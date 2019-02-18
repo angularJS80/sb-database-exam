@@ -19,26 +19,19 @@ public class JpaTestService {
     @Autowired
     MemberOrderRepository memberOrderRepository;
 
+
+
     @Transactional
     public void goodsOrder(){
         // 상품생성
         List<Item> items = addDefaultItem();
         itemRepository.saveAll(items);
 
-
-
         // 회원 생성
         List<Member> members = addDefaultMember();
 
-
-
-
-
         // 회원들에 주문서 작성 ( 동일한 상품목록)
         orrding(members,items);
-
-
-
 
 
         // 모든 사항을 회원 중심으로 저장
@@ -55,9 +48,12 @@ public class JpaTestService {
             System.out.println("memberOrder = " + memberOrder);
         }
 
+        List<ItemCount> itemSummaryList = itemRepository.findItemSummery();
 
 
-
+        for(ItemCount itemCount:itemSummaryList ){
+            System.out.println("orderItem = " + itemCount);
+        }
 
     }
 

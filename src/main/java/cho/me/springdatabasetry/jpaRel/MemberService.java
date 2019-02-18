@@ -38,7 +38,14 @@ public class MemberService {
             System.out.println("member = " + member.getMemberOrderList());
         }
 
+        itemRepository.findItemSummery();
+        /*
+        List<OrderItem> itemList = itemRepository.findItemSummery();
 
+        for(OrderItem orderItem:itemList ){
+            System.out.println("item = " + orderItem);
+        }
+*/
     }
 
     private void orrding(List<Member> members, List<Item> items) {
