@@ -32,10 +32,15 @@ public class Member {
 	@Column
 	private String zipCode;
 
-	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY )
+	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER )
 	@JoinColumn(name="member_id")
 	@JsonBackReference
 	private List<MemberOrder> memberOrderList;
+/*
+	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER )
+	private List<MemberType> memberTypes;*/
+
+
 
 	public void addMemberOrder(MemberOrder memberOrder) {
 		if(memberOrderList ==null) {

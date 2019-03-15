@@ -30,7 +30,7 @@ public class MemberOrder {
 	@JsonManagedReference
 	private Member member;
 
-	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY )
+	@OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER )
 	@JoinColumn(name="member_order_id")
 	private List<OrderItem> orderItemsList;
 

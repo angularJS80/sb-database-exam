@@ -22,40 +22,43 @@ public class JpaTestService {
 
 
     @Transactional
-    public void goodsOrder(){
+    public List<Item> createDefaultItem(){
         // 상품생성
         List<Item> items = addDefaultItem();
         itemRepository.saveAll(items);
+        return items;
+    }
 
+    @Transactional
+    public List<Member> createDefaultMember(){
         // 회원 생성
         List<Member> members = addDefaultMember();
+        return members;
+    }
+
+
+    @Transactional
+    public List<Member> goodsOrder(List<Item> items,List<Member> members){
 
         // 회원들에 주문서 작성 ( 동일한 상품목록)
         orrding(members,items);
+        return members;
+    }
 
-
+    public void saveMember(List<Member> members){
         // 모든 사항을 회원 중심으로 저장
         memberRepository.saveAll(members);
-
-        members = memberRepository.findAll();
-        for(Member member:members ){
-            System.out.println("member = " + member);
-        }
-
-
-        List<MemberOrder> memberOrders  = memberOrderRepository.findAll();
-        for(MemberOrder memberOrder:memberOrders ){
-            System.out.println("memberOrder = " + memberOrder);
-        }
-
-        List<ItemCount> itemSummaryList = itemRepository.findItemSummery();
-
-
-        for(ItemCount itemCount:itemSummaryList ){
-            System.out.println("orderItem = " + itemCount);
-        }
-
     }
+
+    public List<Member> getMembers(){
+        List<Member> members = memberRepository.findAll();
+        return members;
+    }
+
+    public List<MemberOrder> getMemberOrders() {
+        return memberOrderRepository.findAll();
+    }
+
 
     private void orrding(List<Member> members, List<Item> items) {
         // 주문서 작성
@@ -110,5 +113,10 @@ public class JpaTestService {
                 Item.builder().name("온수기").price(10000).build()
         );
         return items;
+    }
+
+
+    public List<ItemCount> getOrderedItemCount() {
+        return itemRepository.findItemSummery();
     }
 }

@@ -39,7 +39,23 @@ public class DefaultDataPopulator implements ApplicationRunner {
         accountRepository.findByNames(names);
         */
 
-        jpaTestService.goodsOrder();
+        List<Item> items = jpaTestService.createDefaultItem();
+        List<Member> members = jpaTestService.createDefaultMember();
+
+        members = jpaTestService.goodsOrder(items,members);
+        jpaTestService.saveMember(members);
+
+        jpaTestService.getMembers().stream().forEach(member->{
+            System.out.println("member = " + member);
+        });
+
+        jpaTestService.getMemberOrders().stream().forEach(memberOrder->{
+            System.out.println("memberOrder = " + memberOrder);
+        });
+
+        jpaTestService.getOrderedItemCount().stream().forEach(itemCount->{
+            System.out.println("itemCount = " + itemCount);
+        });
 
     }
 
